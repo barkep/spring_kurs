@@ -3,7 +3,6 @@ package io.github.mat3e;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +17,7 @@ public class HelloServlet extends HttpServlet {
     private final Logger logger = LoggerFactory.getLogger(HelloServlet.class);
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         logger.info("Got request with parameters: " + req.getParameterMap());
         var name = Optional.ofNullable(req.getParameter(NAME_PARAM)).orElse("world");
         resp.getWriter().write("Hello " + name + "!");

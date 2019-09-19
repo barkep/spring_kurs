@@ -4,13 +4,7 @@ import org.eclipse.jetty.annotations.AnnotationConfiguration;
 import org.eclipse.jetty.plus.webapp.EnvConfiguration;
 import org.eclipse.jetty.plus.webapp.PlusConfiguration;
 import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.webapp.Configuration;
-import org.eclipse.jetty.webapp.FragmentConfiguration;
-import org.eclipse.jetty.webapp.JettyWebXmlConfiguration;
-import org.eclipse.jetty.webapp.MetaInfConfiguration;
-import org.eclipse.jetty.webapp.WebAppContext;
-import org.eclipse.jetty.webapp.WebInfConfiguration;
-import org.eclipse.jetty.webapp.WebXmlConfiguration;
+import org.eclipse.jetty.webapp.*;
 
 public class App {
     public static void main(String[] args) throws Exception {
@@ -29,7 +23,7 @@ public class App {
         });
         webapp.setAttribute("org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern", ".*/classes/.*");
 //        webapp.addServlet(HelloServlet.class, "/api/*");
-        var server = new Server(8081);
+        var server = new Server(8080);
         server.setHandler(webapp);
 
         server.start();
