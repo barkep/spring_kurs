@@ -12,13 +12,8 @@ class HelloService {
         this(new LangRepository());
     }
 
-    private HelloService(LangRepository repository) {
+    HelloService(LangRepository repository) {
         this.repository = repository;
-    }
-
-
-    String prepareGreeting(String name) {
-        return prepareGreeting(name, null);
     }
 
     String prepareGreeting(String name, String lang) {
