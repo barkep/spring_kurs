@@ -1,8 +1,18 @@
 package io.github.mat3e;
 
+import java.util.List;
 import java.util.Optional;
 
 public class LangRepository {
+
+    List<Lang> findAll() {
+        var session = HibernateUtil.getSessionFactory().openSession();
+        var transaction = session.beginTransaction();
+        var result = session.createQuery("from Lang", Lang.class).list();
+        transaction.commit();
+        session.close();
+        return result;
+    }
 
     Optional<Lang> findByID(Integer id) {
         var session = HibernateUtil.getSessionFactory().openSession();

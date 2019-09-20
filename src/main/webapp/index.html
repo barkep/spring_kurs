@@ -8,24 +8,11 @@
 </head>
 <body>
 <form id="welcomeForm" class="pure-form" style="width: 40%; margin: 0 auto">
-
     <label>
         <input type="text" name="name" class="pure-input-rounded" placeholder="name">
     </label>
-
     <fieldset id="langs"></fieldset>
-    <label class="pure-radio">
-        <input type="radio" name="lang" value="1">
-        🇺🇸
-    </label>
-
-    <label class="pure-radio">
-        <input type="radio" name="lang" value="2" checked>
-        🇵🇱
-    </label>
-
     <button id="btn" type="submit" class="pure-button pure-button-primary">Submit</button>
-
     <div id="welcome" style="width: 40%; margin: 0 auto"></div>
 </form>
 <script>
@@ -44,7 +31,7 @@
                     ${CODE_TO_EMOJI[l.code]}
                 </label>
             `).join('\n');
-            document.getElementById('langs').innerHTML =
+            document.getElementById('langs').innerHTML = checkboxes
         });
     const div = document.getElementById('welcome');
     const form = document.getElementById('welcomeForm');
