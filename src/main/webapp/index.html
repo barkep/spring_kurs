@@ -13,6 +13,7 @@
         <input type="text" name="name" class="pure-input-rounded" placeholder="name">
     </label>
 
+    <fieldset id="langs"></fieldset>
     <label class="pure-radio">
         <input type="radio" name="lang" value="1">
         🇺🇸
@@ -25,9 +26,26 @@
 
     <button id="btn" type="submit" class="pure-button pure-button-primary">Submit</button>
 
-    <div id="welcome" style="width: 40%; margin: 0 auto"
+    <div id="welcome" style="width: 40%; margin: 0 auto"></div>
 </form>
 <script>
+    const API_URL = 'http://localhost:8080/api?';
+    const CODE_TO_EMOJI = {
+        'pl': '🇵🇱',
+        'en': '🇺🇸',
+        'de': '🇩🇪'
+    };
+    fetch(`${API_URL}/langs`)
+        .then(response => response.json())
+        .then((langArr) => {
+            const checkboxes = langArr.map(l => `
+               <label class="pure-radio">
+                    <input type="radio" name="lang" value="${l.id}" checked>
+                    ${CODE_TO_EMOJI[l.code]}
+                </label>
+            `).join('\n');
+            document.getElementById('langs').innerHTML =
+        });
     const div = document.getElementById('welcome');
     const form = document.getElementById('welcomeForm');
     document.getElementById('btn').addEventListener('click', (event) => {
@@ -36,7 +54,8 @@
             name: form.elements.name.value,
             lang: form.elements.lang.value
         };
-        fetch('http://localhost:8080/api?' + new URLSearchParams(formObj))
+
+        fetch(`${API_URL}${new URLSearchParams(formObj)}`)
             .then(response => response.text())
             .then((text) => {
                 div.innerHTML = `<h1>${text}</h1>`
