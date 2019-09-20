@@ -7,6 +7,42 @@
           integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47" crossorigin="anonymous">
 </head>
 <body>
-<h1>Hello from index.html!</h1>
-</body>
-</html>
+<form id="welcomeForm" class="pure-form" style="width: 40%; margin: 0 auto">
+
+    <label>
+        <input type="text" name="name" class="pure-input-rounded" placeholder="name">
+    </label>
+
+    <label class="pure-radio">
+        <input type="radio" name="lang" value="1">
+        🇺🇸
+    </label>
+
+    <label class="pure-radio">
+        <input type="radio" name="lang" value="2" checked>
+        🇵🇱
+    </label>
+
+    <button id="btn" type="submit" class="pure-button pure-button-primary">Submit</button>
+
+    <div id="welcome" style="width: 40%; margin: 0 auto"
+</form>
+<script>
+    const div = document.getElementById('welcome');
+    const form = document.getElementById('welcomeForm');
+    document.getElementById('btn').addEventListener('click', (event) => {
+        event.preventDefault();
+        const formObj = {
+            name: form.elements.name.value,
+            lang: form.elements.lang.value
+        };
+        fetch('http://localhost:8080/api?' + new URLSearchParams(formObj))
+            .then(response => response.text())
+            .then((text) => {
+                div.innerHTML = `
+                <h1>${text}</h1>
+`
+            });
+    });
+</script>
+<
