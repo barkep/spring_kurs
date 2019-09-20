@@ -16,7 +16,7 @@
     <div id="welcome" style="width: 40%; margin: 0 auto"></div>
 </form>
 <script>
-    const API_URL = 'http://localhost:8080/api?';
+    const API_URL = 'http://localhost:8080/api';
     const CODE_TO_EMOJI = {
         'pl': '🇵🇱',
         'en': '🇺🇸',
@@ -25,13 +25,13 @@
     fetch(`${API_URL}/langs`)
         .then(response => response.json())
         .then((langArr) => {
-            const checkboxes = langArr.map(l => `
+            document.getElementById('langs').innerHTML = langArr.map(l => `
                <label class="pure-radio">
                     <input type="radio" name="lang" value="${l.id}" checked>
                     ${CODE_TO_EMOJI[l.code]}
                 </label>
-            `).join('\n');
-            document.getElementById('langs').innerHTML = checkboxes
+            `)
+                .join('\n')
         });
     const div = document.getElementById('welcome');
     const form = document.getElementById('welcomeForm');
@@ -42,7 +42,7 @@
             lang: form.elements.lang.value
         };
 
-        fetch(`${API_URL}${new URLSearchParams(formObj)}`)
+        fetch(`${API_URL}?${new URLSearchParams(formObj)}`)
             .then(response => response.text())
             .then((text) => {
                 div.innerHTML = `<h1>${text}</h1>`

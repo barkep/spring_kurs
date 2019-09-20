@@ -1,5 +1,6 @@
 package io.github.mat3e;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -9,30 +10,30 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "Hello", urlPatterns = {"/api"})
-public class HelloServlet extends HttpServlet {
-    private static final String NAME_PARAM = "name";
-    private static final String LANG_PARAM = "lang";
+@WebServlet(name = "Lang", urlPatterns = {"/api/langs"})
+public class LangServlet extends HttpServlet {
     private final Logger logger = LoggerFactory.getLogger(HelloServlet.class);
 
-    private HelloService service;
+    private LangRepository repository;
+    private ObjectMapper mapper;
 
     /**
      * Servlet container needs it
      */
     @SuppressWarnings("unsed")
-    public HelloServlet() {
-        this(new HelloService());
+    public LangServlet() {
+        this(new LangRepository(), new ObjectMapper());
     }
 
-    private HelloServlet(HelloService service) {
-        this.service = service;
+    private LangServlet(LangRepository repository, ObjectMapper mapper) {
+        this.mapper = mapper;
+        this.repository = repository;
     }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         logger.info("Got request with parameters: " + req.getParameterMap());
-        var name = req.getParameter(NAME_PARAM);
-        var lang = req.getParameter(LANG_PARAM);
-        resp.getWriter().write(service.prepareGreeting(name, lang));
+        resp.setContentType("application/json;charset=UTF-8");
+        mapper.writeValue(resp.getOutputStream(), repository.findAll());
     }
 }
