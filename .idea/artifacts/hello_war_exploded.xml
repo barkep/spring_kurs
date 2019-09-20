@@ -33,6 +33,7 @@
           <element id="library" level="project" name="Maven: org.ow2.asm:asm-commons:7.0" />
           <element id="library" level="project" name="Maven: org.ow2.asm:asm-tree:7.0" />
           <element id="library" level="project" name="Maven: org.ow2.asm:asm-analysis:7.0" />
+          <element id="library" level="project" name="Maven: com.h2database:h2:1.4.199" />
         </element>
       </element>
       <element id="directory" name="META-INF">
