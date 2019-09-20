@@ -39,9 +39,7 @@
         fetch('http://localhost:8080/api?' + new URLSearchParams(formObj))
             .then(response => response.text())
             .then((text) => {
-                div.innerHTML = `
-                <h1>${text}</h1>
-`
+                div.innerHTML = `<h1>${text}</h1>`
             });
     });
 </script>
