@@ -16,7 +16,7 @@ class LangService {
         this(new LangRepository());
     }
 
-    LangService(LangRepository repository) {
+    private LangService(LangRepository repository) {
         this.repository = repository;
     }
 

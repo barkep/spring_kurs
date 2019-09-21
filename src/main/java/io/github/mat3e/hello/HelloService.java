@@ -2,8 +2,6 @@ package io.github.mat3e.hello;
 
 import io.github.mat3e.lang.Lang;
 import io.github.mat3e.lang.LangRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.Optional;
 
@@ -11,7 +9,6 @@ class HelloService {
     static final String FALLBACK_NAME = "world";
     static final Lang FALLBACK_LANG = new Lang(1, "Hello", "en");
 
-    private final Logger logger = LoggerFactory.getLogger(HelloService.class);
     private LangRepository repository;
 
     HelloService() {
@@ -22,14 +19,8 @@ class HelloService {
         this.repository = repository;
     }
 
-    String prepareGreeting(String name, String lang) {
-        Integer langId;
-        try {
-            langId = Optional.ofNullable(lang).map(Integer::valueOf).orElse(FALLBACK_LANG.getId());
-        } catch (NumberFormatException e) {
-            logger.warn("Niepoprawny format parametru lang");
-            langId = FALLBACK_LANG.getId();
-        }
+    String prepareGreeting(String name, Integer lang) {
+        Integer langId = Optional.ofNullable(lang).orElse(FALLBACK_LANG.getId());
         var welcomeMsg = repository.findByID(langId).orElse(FALLBACK_LANG).getWelcomeMsg();
         String nameToWelcome = Optional.ofNullable(name).orElse(FALLBACK_NAME);
         return welcomeMsg + " " + nameToWelcome + " !";

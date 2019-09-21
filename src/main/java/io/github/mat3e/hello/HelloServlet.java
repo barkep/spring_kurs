@@ -33,6 +33,12 @@ public class HelloServlet extends HttpServlet {
         logger.info("Got request with parameters: " + req.getParameterMap());
         var name = req.getParameter(NAME_PARAM);
         var lang = req.getParameter(LANG_PARAM);
-        resp.getWriter().write(service.prepareGreeting(name, lang));
+        Integer langId = null;
+        try {
+            langId = Integer.valueOf(lang);
+        } catch (NumberFormatException e) {
+            logger.warn("Niepoprawny format parametru lang: " + lang);
+        }
+        resp.getWriter().write(service.prepareGreeting(name, langId));
     }
 }
